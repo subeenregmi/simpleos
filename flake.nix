@@ -11,13 +11,15 @@
     pkgs = import nixpkgs { inherit system; };
   in
   {
-    packages.${system}.default = pkgs.mkShell {
+    packages.${system}.default = pkgs.mkShellNoCC {
       packages = with pkgs; [
-        binutils
-        gcc
-        bear
-        gnumake
-      ];
+            pkgsCross.i686-embedded.buildPackages.gccWithoutTargetLibc
+            nasm
+            bear
+        ];
+      shellHook = ''
+        export PATH=${pkgs.lib.makeBinPath (with pkgs; [ qemu grub2 xorriso ])}:$PATH
+      '';
     };
   };
 }
