@@ -1,3 +1,6 @@
 .direnv/
 build/
 .cache/
+*.o
+compile_commands.json
+os.kernel

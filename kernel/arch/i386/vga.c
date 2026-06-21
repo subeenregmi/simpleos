@@ -1,7 +1,7 @@
+#include <kernel/vga.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
-#include <vga.h>
 
 volatile uint16_t *vga_buffer = (uint16_t *)VGA_MEMORY;
 size_t vga_cursor_x = 0;
