@@ -1,24 +1,24 @@
 [
   {
-    "file": "src/kernel.c",
+    "file": "string/strlen.c",
     "arguments": [
       "i686-elf-gcc",
-      "-c",
-      "src/kernel.c",
-      "-o",
-      "build/kernel.o",
       "-std=gnu99",
       "-ffreestanding",
       "-O2",
       "-Wall",
       "-Wextra",
-      "-Iinclude"
+      "-Iinclude",
+      "-c",
+      "string/strlen.c",
+      "-o",
+      "string/strlen.o"
     ],
-    "directory": "/home/subeen/subeenfiles/code/simpleos",
-    "output": "build/kernel.o"
+    "directory": "/home/subeen/subeenfiles/code/simpleos/libc",
+    "output": "string/strlen.o"
   },
   {
-    "file": "src/kernel.c",
+    "file": "string/strlen.c",
     "arguments": [
       "i686-elf-gcc",
       "-fstack-clash-protection",
@@ -29,42 +29,43 @@
       "-fzero-call-used-regs=used-gpr",
       "-fstrict-flex-arrays=1",
       "-fno-strict-overflow",
-      "-c",
-      "src/kernel.c",
-      "-o",
-      "build/kernel.o",
       "-std=gnu99",
       "-ffreestanding",
       "-O2",
       "-Wall",
       "-Wextra",
       "-Iinclude",
+      "-c",
+      "string/strlen.c",
+      "-o",
+      "string/strlen.o",
       "-B/nix/store/0ihzx93smybapnhz9w58w721vgfs6krb-i686-elf-nolibc-gcc-15.2.0-lib/i686-elf/lib",
       "-frandom-seed=4qynjhphif"
     ],
-    "directory": "/home/subeen/subeenfiles/code/simpleos",
-    "output": "build/kernel.o"
+    "directory": "/home/subeen/subeenfiles/code/simpleos/libc",
+    "output": "string/strlen.o"
   },
   {
-    "file": "src/vga.c",
+    "file": "kernel/kernel.c",
     "arguments": [
       "i686-elf-gcc",
-      "-c",
-      "src/vga.c",
-      "-o",
-      "build/vga.o",
       "-std=gnu99",
       "-ffreestanding",
       "-O2",
       "-Wall",
       "-Wextra",
-      "-Iinclude"
+      "-Iinclude",
+      "-I../libc/include",
+      "-c",
+      "kernel/kernel.c",
+      "-o",
+      "kernel/kernel.o"
     ],
-    "directory": "/home/subeen/subeenfiles/code/simpleos",
-    "output": "build/vga.o"
+    "directory": "/home/subeen/subeenfiles/code/simpleos/kernel",
+    "output": "kernel/kernel.o"
   },
   {
-    "file": "src/vga.c",
+    "file": "kernel/kernel.c",
     "arguments": [
       "i686-elf-gcc",
       "-fstack-clash-protection",
@@ -75,42 +76,44 @@
       "-fzero-call-used-regs=used-gpr",
       "-fstrict-flex-arrays=1",
       "-fno-strict-overflow",
-      "-c",
-      "src/vga.c",
-      "-o",
-      "build/vga.o",
       "-std=gnu99",
       "-ffreestanding",
       "-O2",
       "-Wall",
       "-Wextra",
       "-Iinclude",
+      "-I../libc/include",
+      "-c",
+      "kernel/kernel.c",
+      "-o",
+      "kernel/kernel.o",
       "-B/nix/store/0ihzx93smybapnhz9w58w721vgfs6krb-i686-elf-nolibc-gcc-15.2.0-lib/i686-elf/lib",
       "-frandom-seed=4qynjhphif"
     ],
-    "directory": "/home/subeen/subeenfiles/code/simpleos",
-    "output": "build/vga.o"
+    "directory": "/home/subeen/subeenfiles/code/simpleos/kernel",
+    "output": "kernel/kernel.o"
   },
   {
-    "file": "src/string.c",
+    "file": "arch/i386/vga.c",
     "arguments": [
       "i686-elf-gcc",
-      "-c",
-      "src/string.c",
-      "-o",
-      "build/string.o",
       "-std=gnu99",
       "-ffreestanding",
       "-O2",
       "-Wall",
       "-Wextra",
-      "-Iinclude"
+      "-Iinclude",
+      "-I../libc/include",
+      "-c",
+      "arch/i386/vga.c",
+      "-o",
+      "arch/i386/vga.o"
     ],
-    "directory": "/home/subeen/subeenfiles/code/simpleos",
-    "output": "build/string.o"
+    "directory": "/home/subeen/subeenfiles/code/simpleos/kernel",
+    "output": "arch/i386/vga.o"
   },
   {
-    "file": "src/string.c",
+    "file": "arch/i386/vga.c",
     "arguments": [
       "i686-elf-gcc",
       "-fstack-clash-protection",
@@ -121,20 +124,21 @@
       "-fzero-call-used-regs=used-gpr",
       "-fstrict-flex-arrays=1",
       "-fno-strict-overflow",
-      "-c",
-      "src/string.c",
-      "-o",
-      "build/string.o",
       "-std=gnu99",
       "-ffreestanding",
       "-O2",
       "-Wall",
       "-Wextra",
       "-Iinclude",
+      "-I../libc/include",
+      "-c",
+      "arch/i386/vga.c",
+      "-o",
+      "arch/i386/vga.o",
       "-B/nix/store/0ihzx93smybapnhz9w58w721vgfs6krb-i686-elf-nolibc-gcc-15.2.0-lib/i686-elf/lib",
       "-frandom-seed=4qynjhphif"
     ],
-    "directory": "/home/subeen/subeenfiles/code/simpleos",
-    "output": "build/string.o"
+    "directory": "/home/subeen/subeenfiles/code/simpleos/kernel",
+    "output": "arch/i386/vga.o"
   }
 ]
