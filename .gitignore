@@ -3,7 +3,9 @@ build/
 .cache/
 *.o
 compile_commands.json
+./compile_commands.json
 os.kernel
 libk.a
 os.iso
 isodir
+sysroot/

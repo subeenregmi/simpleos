@@ -22,6 +22,8 @@ LINKER_SCRIPT=arch/i386/linker.ld
 LIBK=../libc/libk.a
 OS=os.kernel
 
+SYSROOT_DIR=../sysroot
+
 OBJS_LINK_LIST=\
 			   $(CRTI_OBJ) \
 			   $(CRTBEGIN_OBJ) \
@@ -41,6 +43,16 @@ $(OS): $(INTERNAL_OBJS) $(LINKER_SCRIPT)
 
 %.o: %.asm 
 	$(AS) $(ASFLAGS) $^ -o $@
+
+install: install-headers install-kernel
+
+install-headers:
+	mkdir -vp $(SYSROOT_DIR)/usr/include/
+	cp -R --preserve=timestamps ./include/* $(SYSROOT_DIR)/usr/include/
+
+install-kernel: $(OS)
+	mkdir -vp $(SYSROOT_DIR)/boot/
+	cp $(OS) $(SYSROOT_DIR)/boot/
 
 clean:
 	rm -fv $(INTERNAL_OBJS) 
