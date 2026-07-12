@@ -11,7 +11,8 @@ CRTN_OBJ=arch/i386/crtn.o
 OBJS=\
 	arch/i386/boot.o \
 	kernel/kernel.o \
-	arch/i386/vga.o 
+	arch/i386/vga.o \
+	kernel/mem/vmm.o
 
 INTERNAL_OBJS=$(OBJS) $(CRTI_OBJ) $(CRTN_OBJ)
 

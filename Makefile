@@ -25,4 +25,4 @@ isodir:
 clean:
 	$(MAKE) -C libc clean
 	$(MAKE) -C kernel clean
-	rm -rf isodir
+	rm -rvf isodir
