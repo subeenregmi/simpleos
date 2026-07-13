@@ -24,7 +24,7 @@
 #define PT_ENTRIES 1024
 
 struct vaddr {
-  unsigned int flags : 12;
+  unsigned int offset : 12;
   unsigned int pti : 10;
   unsigned int pdi : 10;
 };
@@ -44,3 +44,5 @@ extern void enable_paging();
 
 void init_page_directory(struct pde *pd);
 void init_identity_page_table(struct pte *pt);
+
+void map_page(struct pde *pd, struct vaddr virt, unsigned int paddr);
