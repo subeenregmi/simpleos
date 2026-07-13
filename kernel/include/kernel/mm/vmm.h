@@ -23,8 +23,24 @@
 #define PD_ENTRIES 1024
 #define PT_ENTRIES 1024
 
-extern void load_page_directory(uint32_t *);
+struct vaddr {
+  unsigned int flags : 12;
+  unsigned int pti : 10;
+  unsigned int pdi : 10;
+};
+
+struct pde {
+  unsigned int flags : 12;
+  unsigned int pte_addr : 20;
+};
+
+struct pte {
+  unsigned int flags : 12;
+  unsigned int paddr : 20;
+};
+
+extern void load_page_directory(struct pde *);
 extern void enable_paging();
 
-void init_page_directory(uint32_t *pd);
-void init_identity_page_table(uint32_t *pt);
+void init_page_directory(struct pde *pd);
+void init_identity_page_table(struct pte *pt);
