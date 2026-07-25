@@ -18,7 +18,7 @@ void map_page(struct pde *pd, struct vaddr virt, unsigned int paddr) {
   struct pde pd_entry = pd[virt.pdi];
 
   if (!(pd_entry.flags & PDE_PRESENT)) {
-    // TODO: allocate new pde
+    // TODO: allocate new pde (allocate new pte etc)
     return;
   }
 

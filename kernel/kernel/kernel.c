@@ -5,9 +5,6 @@
 struct pde page_directory[PD_ENTRIES] __attribute__((aligned(4096)));
 struct pte first_page_table[PT_ENTRIES] __attribute__((aligned(4096)));
 
-extern void load_page_directory(struct pde *);
-extern void enable_paging();
-
 void kernel_main(void) {
 
   init_page_directory(page_directory);

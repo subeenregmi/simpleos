@@ -1,15 +1,37 @@
 ENTRY(_start)
 
 SECTIONS {
-    . = 2M;
+    . = 0x00100000;
 
-    .text ALIGN(4K): {
-        *(.multiboot)
+    _kernel_start = .;
+
+    .multiboot_header : { 
+        *(.multiboot_header) 
+    }
+
+    .multiboot_text : { 
+        *(.multiboot_text) 
+    }
+
+    . += 0xC0000000;
+
+    .text ALIGN(4K) : AT (ADDR (.text) - 0xC0000000) {
         *(.text)
     }
-    
-    .bss ALIGN(4K): {
+
+    .rodata ALIGN(4K) : AT (ADDR (.rodata) - 0xC0000000) {
+        *(.rodata)
+    }
+
+    .data ALIGN(4K) : AT (ADDR (.data) - 0xC0000000) {
+        *(.data)
+    }
+
+    .bss ALIGN(4K) : AT (ADDR (.bss) - 0xC0000000) {
         *(COMMON)
         *(.bss)
+        *(.stack)
     }
+
+    _kernel_end = .;
 }
