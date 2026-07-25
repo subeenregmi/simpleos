@@ -1,8 +1,8 @@
 #include <stdint.h>
 
-#define VGA_WIDTH 81
-#define VGA_HEIGHT 26
-#define VGA_MEMORY 0xB8000
+#define VGA_WIDTH 80
+#define VGA_HEIGHT 25
+#define VGA_MEMORY 0xC03FF000
 
 void vga_putchar(unsigned char c);
 void vga_clear_buffer();

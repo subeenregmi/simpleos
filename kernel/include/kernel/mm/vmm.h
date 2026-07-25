@@ -39,9 +39,6 @@ struct pte {
   unsigned int paddr : 20;
 };
 
-extern void load_page_directory(struct pde *);
-extern void enable_paging();
-
 void init_page_directory(struct pde *pd);
 void init_identity_page_table(struct pte *pt);
 

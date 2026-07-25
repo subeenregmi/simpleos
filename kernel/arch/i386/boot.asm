@@ -11,12 +11,7 @@ section .multiboot_header
     dd      MB_CHECKSUM
 
 section .bss
-    align   16
-
-    stack_bottom:
-        resb 16384
-
-    stack_top:
+    alignb 4096
 
     boot_page_directory:
         resb 4096
@@ -24,54 +19,65 @@ section .bss
     boot_page_table1:
         resb 4096
 
-section .multiboot_text:
+    stack_bottom:
+        resb 16384
+
+    stack_top:
+
+section .multiboot_text
+extern _kernel_start, _kernel_end 
 
     global _start
     _start:
-       mov edi, boot_page_table1 - 0xC0000000
-       mov esi, 0
-       mov ecx, 1023
-    1:
-        cmp esi, kernel_start
+        mov edi, boot_page_table1 - 0xC0000000
+        mov esi, 0
+        mov ecx, 1023
 
+    .do_kernel_map:
+        cmp esi, _kernel_start
+        jl .next_pt_entry
+        cmp esi, _kernel_end - 0xC0000000
+        jge .map_vga_memory
+
+        mov edx, esi
+        or edx, 3
+        mov dword [edi], edx
+
+    .next_pt_entry:
+        add esi, 4096
+        add edi, 4
+        loop .do_kernel_map
+
+    .map_vga_memory:
+        mov dword [boot_page_table1 - 0xC0000000 + 1023 * 4], 0x000B8000 | 0x3
         
-    
-    
+        mov dword [boot_page_directory - 0xC0000000], boot_page_table1 - 0xC0000000 + 0x3
+        mov dword [boot_page_directory - 0xC0000000 + 768 * 4], boot_page_table1 - 0xC0000000 + 0x3
 
+        mov ecx, boot_page_directory - 0xC0000000
+        mov cr3, ecx
+
+        mov ecx, cr0
+        or ecx, 0x80010000
+        mov cr0, ecx
+
+        lea ecx, [higher_half_kernel] 
+        jmp ecx 
 
 section .text
 extern kernel_main
 
-    global _start 
-    _start:
+    global higher_half_kernel 
+    higher_half_kernel:
+
+        mov dword [boot_page_directory], 0
+
+        mov ecx, cr3
+        mov cr3, ecx
+
         mov esp, stack_top
 
         call kernel_main
 
     .loop:
         jmp .loop
-
-    global load_page_directory 
-    load_page_directory:
-        push ebp
-        mov ebp, esp 
-        
-        mov eax, [esp + 8]
-        mov cr3, eax
-
-        mov esp, ebp
-        pop ebp
-        ret
-
-    global enable_paging
-    enable_paging:
-        push ebp
-        mov ebp, esp
-
-        mov eax, cr0
-        or eax, 0x80000000
-        mov cr0, eax
-    
-        mov esp, ebp
-        pop ebp
-        ret
